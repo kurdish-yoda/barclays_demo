@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="light">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1"
+        />
+        <meta name="description" content="" />
+        <meta name="robots" content="noindex" />
+
+        <link
+            rel="shortcut icon"
+            href="{{ url_for('static', filename='assets/images/favicons/favicon.ico') }}"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="{{ url_for('static', filename='assets/images/favicons/favicon-32x32.png') }}"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="{{ url_for('static', filename='assets/images/favicons/favicon-16x16.png') }}"
+        />
+        <title>{% block title %}Home{% endblock %}</title>
+        <!-- START : Favicon-->
+
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/static/assets/images/favicons/apple-touch-icon.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/static/assets/images/favicons/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/static/assets/images/favicons/favicon-16x16.png"
+        />
+        <link
+            rel="manifest"
+            href="/static/assets/images/favicons/site.webmanifest"
+        />
+        <link
+            rel="mask-icon"
+            href="/static/assets/images/favicons/safari-pinned-tab.svg"
+            color="#0a183f"
+        />
+        <link
+            rel="shortcut icon"
+            href="/static/assets/images/favicons/favicon.ico"
+        />
+        <meta name="msapplication-TileColor" content="#2d89ef" />
+        <meta
+            name="msapplication-config"
+            content="static/assets/images/favicons/browserconfig.xml"
+        />
+        <meta name="theme-color" content="#ffffff" />
+        <!-- END : Favicon-->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="/static/assets/css/legacy_css/rt-plugins.css"
+        />
+        <link
+            href="https://unpkg.com/aos@2.3.0/dist/aos.css"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+            integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+            crossorigin=""
+        />
+        <link rel="stylesheet" href="/static/assets/css/legacy_css/app.css" />
+        <link rel="stylesheet" href="/static/assets/css/thn-style.css" />
+        <link rel="stylesheet" href="/static/assets/css/responsive.css" />
+
+        <!-- Link to CSS file based on session difficulty -->
+        {% if session['avatar'] %}
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='assets/css/' ~ session['avatar'] ~ '.css') }}"
+        />
+        {% else %}
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='assets/css/avatar_1.css') }}"
+        />
+        {% endif %}
+
+        <!-- START : Theme Config js-->
+        <!-- START : Theme Config js-->
+        <script src="/static/assets/js/legacy_js/settings.js" sync></script>
+        <!-- END : Theme Config js-->
+        <!-- START : Js error if missing-->
+        <div id="sidebar_menus" style="display: none"></div>
+        <!-- END : Js error if missing-->
+    </head>
+    <body class="font-inter skin-default">
+        <!-- [if IE]> <p class="browserupgrade">
+			You are using an <strong>outdated</strong> browser. Please
+			<a href="https://browsehappy.com/">upgrade your browser</a> to improve
+			your experience and security.
+		</p> <![endif] -->
+        <div class="loginwrapper">
+            <div class="lg-inner-column">
+                <div class="right-column relative">
+                    <div
+                        class="inner-content h-full flex flex-col bg-white dark:bg-slate-800"
+                    >
+                        <div class="h-full flex flex-col justify-center">
+                            <div
+                                class="auth-box-3 dark:thn-window-dark thn-window thn-window-admin mt-10 mb-10"
+                            >
+                                <header
+                                    class="mb-5 border-b border-slate-100 dark:border-slate-700 pb-5 -mx-6 px-6"
+                                >
+                                    <div
+                                        class="flex justify-between items-center items-center h-full"
+                                    >
+                                        <div
+                                            class="flex items-center md:space-x-4 space-x-2 xl:space-x-0 rtl:space-x-reverse vertical-box"
+                                        >
+                                            {% if session['user_type'] ==
+                                            'Client' %}
+                                            <a
+                                                href="{{ url_for('client_view.index') }}"
+                                                id="logoButton"
+                                                class="inline-block"
+                                            >
+                                                {% endif %}
+
+                                                <img
+                                                    src="/static/assets/images/logo/logo.png"
+                                                    alt="Mindorah logo"
+                                                    class="dark_logo thn-logo"
+                                                />
+
+                                                <img
+                                                    src="/static/assets/images/logo/logo-white.png"
+                                                    alt="Mindorah logo"
+                                                    class="white_logo thn-logo"
+                                                />
+                                            </a>
+                                        </div>
+                                        {% block clientLogo %} {% endblock %} {%
+                                        block top_menu_controls %}
+                                        <!-- end top menu -->
+                                        <div
+                                            class="nav-tools flex items-center lg:space-x-5 space-x-3 rtl:space-x-reverse leading-0"
+                                        >
+                                            <!-- BEGIN: Toggle Theme -->
+                                            <div>
+                                                <button
+                                                    id="themeMood"
+                                                    data-tooltip="Press to toggle night mode."
+                                                    class="h-[28px] w-[28px] lg:h-[32px] lg:w-[32px] lg:bg-gray-500-f7 bg-slate-50 dark:bg-slate-900 lg:dark:bg-slate-900 dark:text-white text-slate-900 cursor-pointer rounded-full text-[20px] flex flex-col items-center justify-center"
+                                                >
+                                                    <iconify-icon
+                                                        class="text-slate-800 dark:text-white text-xl dark:block hidden"
+                                                        id="moonIcon"
+                                                        icon="line-md:sunny-outline-to-moon-alt-loop-transition"
+                                                    ></iconify-icon>
+                                                    <iconify-icon
+                                                        class="text-slate-800 dark:text-white text-xl dark:hidden block"
+                                                        id="sunIcon"
+                                                        icon="line-md:moon-filled-to-sunny-filled-loop-transition"
+                                                    ></iconify-icon>
+                                                </button>
+                                            </div>
+                                            <!-- END: TOggle Theme -->
+                                            <!-- BEGIN: gray-scale Dropdown -->
+                                            <div>
+                                                <button
+                                                    id="grayScale"
+                                                    data-tooltip="Press to toggle grayscale."
+                                                    class="lg:h-[32px] lg:w-[32px] h-[28px] w-[28px] lg:bg-gray-500-f7 bg-slate-50 dark:bg-slate-900 dark:text-white text-slate-900 cursor-pointer rounded-full text-[20px] flex flex-col items-center justify-center"
+                                                >
+                                                    <iconify-icon
+                                                        class="text-slate-800 dark:text-white text-xl"
+                                                        icon="material-symbols:accessibility-new-rounded"
+                                                    ></iconify-icon>
+                                                </button>
+                                            </div>
+                                            <!-- END: gray-scale Dropdown -->
+                                            <!-- BEGIN: Profile Dropdown -->
+                                            <!-- Profile DropDown Area -->
+                                            {% if current_user.is_authenticated
+                                            %} {% if session['user_type'] ==
+                                            'client' %}
+                                            <div class="md:block w-full">
+                                                <button
+                                                    id="logout"
+                                                    class="lg:bg-gray-500-f7 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-white focus:ring-0 focus:outline-none font-medium rounded-full text-sm text-center inline-flex items-center"
+                                                    style="padding: 5px 12px"
+                                                    type="button"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-expanded="false"
+                                                >
+                                                    <iconify-icon
+                                                        icon="heroicons-outline:login"
+                                                        class="relative text-lg ltr:mr-1 rtl:ml-1"
+                                                    ></iconify-icon>
+                                                </button>
+                                            </div>
+                                            {% endif %}
+                                            <div></div>
+                                            {% endif %}
+
+                                            <!-- END: Header -->
+                                        </div>
+                                        <!-- end nav tools -->
+                                    </div>
+                                    {% endblock %}
+                                </header>
+
+                                <!--Page content.-->
+                                <div>{%block content%} {%endblock%}</div>
+                            </div>
+                        </div>
+                        <div class="auth-footer text-center">
+                            Copyright <span id="symbol">&copy;</span> 2023-<span
+                                id="currentYear"
+                            ></span>
+                            Mindorah. All Rights Reserved. {% block
+                            user_agreement_link %}
+                            <a href="#" id="userAgreement">Terms of Service</a>.
+                            {% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- First load the core scripts -->
+        <script src="{{ url_for('static', filename='assets/js/legacy_js/jquery-3.6.0.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/legacy_js/rt-plugins.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/legacy_js/app.js') }}"></script>
+        <!-- <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script> -->
+        <script src="{{ url_for('static', filename='assets/js/legacy_js/purify.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/typed.min.js') }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.3/purify.min.js"></script>
+        <script src="{{ url_for('static', filename='assets/js/getUserMedia.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/microsoft-cognitiveservices-speech-sdk/distrib/browser/microsoft.cognitiveservices.speech.sdk.bundle-min.js"></script>
+        <script src="/static/assets/js/commands.js"></script>
+        <script type="module" src="/static/assets/js/avatar.js"></script>
+        <!-- Load STT first since other modules depend on it -->
+        <script
+            type="module"
+            src="{{ url_for('static', filename='assets/js/stt.js') }}"
+        ></script>
+
+        <!-- Then load the dependent modules -->
+        <script
+            type="module"
+            src="{{ url_for('static', filename='assets/js/config.js') }}"
+        ></script>
+        <script
+            type="module"
+            src="{{ url_for('static', filename='assets/js/actions.js') }}"
+        ></script>
+        <script
+            type="module"
+            src="{{ url_for('static', filename='assets/js/cleanup.js') }}"
+        ></script>
+
+        <!-- Load int.js last as it depends on all other modules -->
+        <script
+            type="module"
+            src="{{ url_for('static', filename='assets/js/coach.js') }}"
+        ></script>
+
+        <script>
+            var userType = "{{ session['user_type'] }}";
+            const userAgreement = document.getElementById("userAgreement");
+
+            document.addEventListener("DOMContentLoaded", function () {
+                var currentYear = new Date().getFullYear();
+                document.getElementById("currentYear").textContent =
+                    currentYear;
+            });
+
+            const stop_calls = async () => {
+                try {
+                    const call_response = await fetch(
+                        "/candidate/stop_api_call",
+                        {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                        },
+                    );
+                    const response = await call_response.json();
+                    //console.log('Clear result:', response);
+                } catch (error) {
+                    console.error("Error whilst stoping API call:", error);
+                }
+            };
+
+            document.addEventListener("DOMContentLoaded", function () {
+                var userAgreement = document.getElementById("userAgreement");
+                if (userAgreement) {
+                    userAgreement.addEventListener("click", function (event) {
+                        event.preventDefault(); // Prevent default link behavior
+                        var userAgreementUrl =
+                            "https://www.mindorah.com/terms-and-conditions";
+                        window.open(
+                            userAgreementUrl,
+                            "_blank",
+                            "noopener,noreferrer",
+                        );
+                    });
+                }
+            });
+        </script>
+    </body>
+</html>

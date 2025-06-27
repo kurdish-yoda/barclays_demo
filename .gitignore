@@ -1,0 +1,15 @@
+# Ignore push.py file
+push.py
+
+# Common Python ignores
+website/__pycache__/
+website/logs/
+website/logs/*
+
+# Stuff
+instance/
+cert.pem
+key.pem
+
+        website/static/assets/Sage Intacct Product Brochure.pdf
+        website/static/assets/Sage-Intacct-Pricing-Guide.pdf

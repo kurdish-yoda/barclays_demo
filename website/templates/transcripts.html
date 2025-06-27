@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Candidate Transcripts</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        padding: 20px;
+        background-color: #f0f0f0;
+      }
+      h1,
+      h2,
+      h3 {
+        color: #333;
+      }
+      .button-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      .candidate-button {
+        padding: 10px 20px;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .candidate-button.empty {
+        background-color: #3498db;
+      }
+      .candidate-button.empty:hover {
+        background-color: #2980b9;
+      }
+      .candidate-button.non-empty {
+        background-color: #2ecc71;
+      }
+      .candidate-button.non-empty:hover {
+        background-color: #27ae60;
+      }
+      .candidate-button.disabled {
+        background-color: #e74c3c;
+      }
+      .candidate-button.disabled:hover {
+        background-color: #c0392b;
+      }
+      .candidate-section {
+        background-color: white;
+        border: 1px solid #ddd;
+        padding: 20px;
+        margin-bottom: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: none;
+      }
+      .transcript {
+        background-color: #f9f9f9;
+        border: 1px solid #eee;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+      }
+      .conversation {
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+      }
+      .timestamp {
+        font-weight: bold;
+        color: #666;
+        margin-bottom: 15px;
+      }
+      .role {
+        font-weight: bold;
+        color: #333;
+      }
+      .candidate {
+        background-color: #e6f3ff;
+        border-left: 5px solid #3498db;
+      }
+      .interviewer {
+        background-color: #f9f9f9;
+        border-left: 5px solid #2ecc71;
+      }
+      .evaluation {
+        background-color: #fff9e6;
+        border-left: 5px solid #f1c40f;
+      }
+      .interview-flow {
+        background-color: #e8f5e9;
+        border: 1px solid #c8e6c9;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+      }
+      .interview-flow h3 {
+        color: #2e7d32;
+        margin-top: 0;
+      }
+      .interview-flow ul {
+        list-style-type: none;
+        padding-left: 0;
+      }
+      .interview-flow li {
+        margin-bottom: 5px;
+        padding: 5px;
+        background-color: #f1f8e9;
+        border-radius: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>All Transcripts for Job Code: {{ job_code }}</h1>
+
+    <div class="button-container">
+      {% for candidate in candidates %}
+      <button
+        class="candidate-button {% if candidate.candidate_info.is_disabled %} disabled {% elif candidate.candidate_info.interview_flow %} non-empty {% else %} empty {% endif %}"
+        onclick="showTranscript('candidate-{{ candidate.candidate_info.candidate_number }}')"
+      >
+        {{ candidate.candidate_info.first_name }}
+      </button>
+      {% endfor %}
+    </div>
+
+    {% for candidate in candidates %}
+    <div
+      id="candidate-{{ candidate.candidate_info.candidate_number }}"
+      class="candidate-section"
+    >
+      <h2>
+        {{ candidate.candidate_info.first_name }} ({{
+        candidate.candidate_info.job_code }}-{{
+        candidate.candidate_info.candidate_number }}) {% if
+        candidate.candidate_info.is_disabled %}
+        <span style="color: #e74c3c">(Disabled)</span>
+        {% endif %}
+      </h2>
+
+      <div class="interview-flow">
+        <h3>User Behaviour:</h3>
+        <ul>
+          {% for step in candidate.candidate_info.interview_flow %}
+          <li>{{ step }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      {% for transcript in candidate.transcripts %}
+      <div class="transcript">
+        <h3 class="timestamp">Timestamp: {{ transcript.timestamp }}</h3>
+        {% for conversation in transcript.conversations %}
+        <div
+          class="conversation {% if conversation.role == 'Candidate' %}candidate{% elif conversation.role == 'Interviewer' %}interviewer{% else %}evaluation{% endif %}"
+        >
+          <p>
+            <span class="role">{{ conversation.role }}:</span> {{
+            conversation.text }}
+          </p>
+        </div>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+
+    <script>
+      function showTranscript(candidateId) {
+        // Hide all candidate sections
+        var sections = document.getElementsByClassName("candidate-section");
+        for (var i = 0; i < sections.length; i++) {
+          sections[i].style.display = "none";
+        }
+
+        // Show the selected candidate's section
+        var selectedSection = document.getElementById(candidateId);
+        if (selectedSection) {
+          selectedSection.style.display = "block";
+        }
+      }
+    </script>
+  </body>
+</html>

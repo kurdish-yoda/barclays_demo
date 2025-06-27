@@ -1,0 +1,77 @@
+{
+  "is_valid_cv": true,
+  "candidate_name": "Rebin Wasi",
+  "summary": "Cybersecurity and IT Governance professional with expertise in network security, risk management, and compliance frameworks such as ISO 27001 and NIS2. Certified GDPR Coordinator and ISO 27001 Foundations, with strong analytical skills in risk assessments, compliance gap analysis, and technical solution evaluation. Known for excellent communication, stakeholder engagement, and the ability to translate complex security concepts into actionable business strategies.",
+  "professional_experience": [
+    {
+      "job_title": "Consultant \u2013 Strategy & Transformation (Internship)",
+      "company": "Deloitte",
+      "duration": "2025 \u2013 1 Month",
+      "level": "Intern",
+      "key_responsibilities_or_achievements": [
+        "Conducted impact assessments of NIS2 compliance requirements for clients",
+        "Performed GAP analyses to evaluate compliance status based on ENISA guidelines",
+        "Developed a strategic roadmap to achieve NIS2 compliance, structuring projects by priority to enhance efficiency"
+      ]
+    },
+    {
+      "job_title": "Solution Sales Specialist \u2013 Cybersecurity (Internship)",
+      "company": "ED A/S",
+      "duration": "2023 \u2013 4 Months",
+      "level": "Intern",
+      "key_responsibilities_or_achievements": [
+        "Gained expertise in cybersecurity frameworks, EDR, and XDR solutions",
+        "Conducted technical evaluations to match cybersecurity solutions with customer needs",
+        "Engaged with clients through meetings and product demonstrations",
+        "Created custom security offerings tailored to client requirements",
+        "Stayed current on cybersecurity threats and trends through continuous learning and conferences"
+      ]
+    },
+    {
+      "job_title": "Senior Customer Advisor / Consultant",
+      "company": "TDC Group / YouSee",
+      "duration": "2015 \u2013 2019",
+      "level": "Senior",
+      "key_responsibilities_or_achievements": [
+        "Provided technical and billing support, ensuring high customer satisfaction",
+        "Delivered expert product knowledge, troubleshooting network and connectivity issues",
+        "Retained customers by proactively addressing concerns and enhancing service quality",
+        "Handled escalated customer issues and provided feedback for process improvements"
+      ]
+    },
+    {
+      "job_title": "Warehouse Assistant",
+      "company": "COOP A/S",
+      "duration": "2020 \u2013 2023",
+      "level": "Entry",
+      "key_responsibilities_or_achievements": [
+        "Assisted in warehouse operations, including inventory management and order fulfillment",
+        "Collaborated with team members to optimize logistics workflows"
+      ]
+    }
+  ],
+  "skills": [
+    "NIS2",
+    "ISO 27001",
+    "GDPR",
+    "CIS Controls",
+    "Risk Assessment",
+    "D-M\u00e6rket",
+    "GRC",
+    "SIEM & SOAR (Microsoft Sentinel)",
+    "XDR (Microsoft 365 Defender)",
+    "Windows Server",
+    "Active Directory",
+    "Veeam Backup",
+    "Zabbix",
+    "TCP/IP",
+    "Firewalls",
+    "VPN",
+    "IDS/IPS",
+    "Cisco CLI",
+    "Azure Security",
+    "Microsoft 365",
+    "Fluent in Danish",
+    "Fluent in English"
+  ]
+}

@@ -1,0 +1,27 @@
+{% extends "base.html" %} {% block title %}Mindorah - interview{% endblock %}
+{%block content%} {% block top_menu_controls %} {%endblock%}
+
+<div id="page-content" class="mb-3" style="display: block">
+  <div
+    class="flex justify-center card-text h-full mt-10"
+    style="min-height: 300px"
+  >
+    <img
+      src="/static/assets/interviewer/avatarTemp1.png"
+      style="display: block"
+      class="thn-respons"
+    />
+  </div>
+</div>
+
+<div
+  class="py-[18px] px-6 font-normal font-Inter text-sm bg-secondary-500 bg-opacity-[14%] text-slate-800 dark:text-slate-300 rounded-md"
+>
+  <div class="space-x-3 rtl:space-x-reverse text-left">
+    <div class="thn-height-fix" id="botResponse" style="text-align: left">
+      Hello. This demo version is only designed to run on PC and Mac computers.
+    </div>
+  </div>
+</div>
+
+{% endblock %}

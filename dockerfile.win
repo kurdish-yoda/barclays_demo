@@ -1,0 +1,46 @@
+# Use a Windows Server Core base image
+FROM mcr.microsoft.com/windows:ltsc2019
+
+WORKDIR /app
+
+# Install Python
+ADD https://www.python.org/ftp/python/3.11.4/python-3.11.4-amd64.exe C:\\python-installer.exe
+RUN powershell -Command "\
+    Start-Process C:\\python-installer.exe -ArgumentList '/quiet InstallAllUsers=1 PrependPath=1' -Wait ; \
+    Remove-Item C:\\python-installer.exe -Force;"
+
+# Install Visual C++ Redistributable
+ADD https://aka.ms/vs/16/release/vc_redist.x64.exe C:\\vc_redist.x64.exe
+RUN powershell -Command "Start-Process -FilePath 'C:\\vc_redist.x64.exe' -ArgumentList '/install', '/quiet', '/norestart' -NoNewWindow -Wait; Remove-Item -Path 'C:\\vc_redist.x64.exe' -Force;"
+
+# Download and unpack FFmpeg
+ADD https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl.zip C:\\ffmpeg.zip
+RUN powershell -Command "\
+    Expand-Archive -Path C:\\ffmpeg.zip -DestinationPath C:\\ ; \
+    Remove-Item C:\\ffmpeg.zip -Force; \
+    $ffmpegDir = Get-ChildItem -Path C:\\ -Directory | Where-Object { $_.Name -like '*ffmpeg*' } | Select-Object -First 1; \
+    if ($ffmpegDir -ne $null) { \
+    Move-Item -Path \"$($ffmpegDir.FullName)\\*\" -Destination C:\\ffmpeg -Force; \
+    Remove-Item -Path \"$($ffmpegDir.FullName)\" -Recurse -Force; \
+    } else { \
+    Write-Output 'FFmpeg directory not found after extraction.'; \
+    exit 1; \
+    }"
+
+# Correctly update PATH to include FFmpeg binaries
+RUN powershell -Command "\
+    $env:PATH = $env:PATH + ';C:\\ffmpeg'; \
+    [Environment]::SetEnvironmentVariable('PATH', $env:PATH, [EnvironmentVariableTarget]::Machine)"
+
+# Attempt to run ffmpeg -version to verify installation
+RUN ffmpeg -version
+
+# Copy the application's files to the Docker image
+COPY . /app
+
+# Install any additional Python dependencies from requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+EXPOSE 80
+
+CMD ["python", "/app/main.py"]
