@@ -1,7 +1,7 @@
 
-# Mindorah Sage Collab
+# Mindorah Barclays Collab
 
-Sage demo.
+Barclays demo.
 
 ## Authors
 

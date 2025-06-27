@@ -103,7 +103,7 @@ def autoLogin():
         # Get prompt template and create prompt
         # ----------------------------------------
         try:
-            prompt_template = wix_db.get_prompt("Sage")
+            prompt_template = wix_db.get_prompt("Barclays")
         except Exception as e:
             current_app.logger.error(f"Error loading prompt template, using default on local storage: {str(e)}")
             prompt_template = load_prompt_template()

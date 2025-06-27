@@ -10,6 +10,3 @@ website/logs/*
 instance/
 cert.pem
 key.pem
-
-        website/static/assets/Sage Intacct Product Brochure.pdf
-        website/static/assets/Sage-Intacct-Pricing-Guide.pdf

@@ -237,7 +237,7 @@
     bottom: 0;
     margin: auto;
     border: 8px solid transparent;
-    border-top-color: rgb(1 215 57);
+    border-top-color: rgb(54 150 252);
     border-radius: 50%;
     animation: thn-button-loading-spinner 1s ease infinite;
 }
