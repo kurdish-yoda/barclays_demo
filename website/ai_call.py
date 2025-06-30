@@ -28,9 +28,9 @@ class AzureAIAgent:
         self.embedding_deployment_name = "text-embedding-3-large"
 
         # --- Azure AI Search Client Initialization (Synchronous) ---
-        self.search_endpoint = get_secret('AZURE-SEARCH-ENDPOINT')
-        self.search_query_key = get_secret('AZURE-SEARCH-API-KEY')
-        self.search_index_name = get_secret('AZURE-SEARCH-INDEX-NAME')
+        self.search_endpoint = "https://stewardsearch.search.windows.net"
+        self.search_query_key = get_secret('STEWARD-SEARCH-API-KEY')
+        self.search_index_name ="txt-rag-index-barclay"
 
         self.search_client = SearchClient(
             endpoint=self.search_endpoint,
@@ -81,7 +81,7 @@ class AzureAIAgent:
             results = self.search_client.search(
                 search_text=None,
                 vector_queries=[vector_query],
-                select=["id", "text_chunk", "source_pdf"]
+                select=["id", "text_chunk", "source_txt"]
             )
 
             retrieved_chunks = []
@@ -90,7 +90,7 @@ class AzureAIAgent:
                     "id": result.get("id"),
                     "score": result.get("@search.score"),
                     "text": result.get("text_chunk"),
-                    "source": result.get("source_pdf"),
+                    "source": result.get("source_txt"),
                 })
             return retrieved_chunks
         except Exception as e:
