@@ -114,8 +114,8 @@ def autoLogin():
         # Setup avatar and voice
         # ----------------------------------------
 
-        session['avatar'] = "avatar_2"
-        session['voice'] = "en-US-BrianNeural"
+        session['avatar'] = "avatar_4"
+        session['voice'] = "en-GB-OliverNeural"
 
         # ----------------------------------------
         # Store prompt and initialize counters
